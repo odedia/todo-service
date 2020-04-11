@@ -1,0 +1,11 @@
+---
+applications:
+  - name: todo-service
+    memory: 1G
+#    path: target/app.jar
+    # routes: 
+    # - route: todo-service.apps.pcfone.io/api
+    # services:
+    # - mysql
+    # - rabbitmq
+    # - metrics-endpoint-actuator-prometheus

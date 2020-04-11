@@ -1,0 +1,33 @@
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/odedia/todos-pcf.git
+    branch: master
+    paths:
+    - todo-service/**/*
+    - todo-service/*
+
+- name: cf-push-resource
+  type: cf
+  source:
+    api: ((cf-api))
+    username: ((cf-user))
+    password: ((cf-password))
+    organization: ((cf-org))
+    space: ((cf-space))
+    skip_cert_check: false
+
+jobs:
+- name: build-jar
+  public: true
+  plan:
+  - get: source-code
+    trigger: true
+  - task: package
+    file: source-code/todo-service/ci/tasks/package.yml
+  - put: cf-push-resource
+    params:
+      manifest: source-code/todo-service/manifest.yml
+      path: package-output/app.jar
+
