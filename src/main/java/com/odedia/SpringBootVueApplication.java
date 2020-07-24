@@ -65,10 +65,12 @@ class TaskEventHandler {
 
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
+		log.info("Saving todo: {}", todo.getTitle());
 		if (todo.getCompleted()) {
 			log.info("Sending completed message for {}", todo.getTitle());
 			source.output().send(MessageBuilder.withPayload(todo.getTitle()).build());
 		}
+		log.info("Completed saving todo: {}", todo.getTitle());
 	}
 }
 

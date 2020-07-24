@@ -2,4 +2,5 @@
 applications:
   - name: todo-service
     memory: 1G
-#    path: target/app.jar
+    services:
+    - mysql
