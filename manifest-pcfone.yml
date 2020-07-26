@@ -3,3 +3,5 @@ applications:
   - name: todo-service
     memory: 1G
     path: target/app.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ }}'
