@@ -6,6 +6,6 @@ applications:
     - mariadb
     routes:
     - route: todo.apps.tas.tanzuworld.com/api
-    path: target/app.jar
+    # path: target/app.jar
     env:
-      WAVEFRONT_PROXY_URL: ${wavefront_endpoint}
+      WAVEFRONT_PROXY_URL: proxy://a0c47e04350f246e59a454ede96bc356-1802637640.eu-west-1.elb.amazonaws.com

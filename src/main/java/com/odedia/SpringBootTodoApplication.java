@@ -33,10 +33,10 @@ import javax.validation.constraints.NotNull;
 
 @SpringBootApplication
 @RestController
-public class SpringBootVueApplication {
+public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootVueApplication.class, args);
+		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
 }
 
@@ -118,4 +118,3 @@ class AccessLogMicrometer {
 				.description("Todos total count!").register(registry);
 	}
 }
-
