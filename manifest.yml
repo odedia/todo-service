@@ -7,4 +7,4 @@ applications:
     routes:
     - route: todo.apps.tas.tanzuworld.com/api
     env:
-      WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.spring-pet-clinic.svc.cluster.local
+      WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.default.svc.cluster.local:2878
