@@ -24,7 +24,7 @@ resources:
     skip_cert_check: true
 
 jobs:
-- name: push-to-pcf
+- name: deploy-to-tas4k8s
   public: true
   serial: true
   plan:
