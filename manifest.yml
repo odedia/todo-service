@@ -6,5 +6,6 @@ applications:
     - mariadb
     routes:
     - route: todo.apps.tas.tanzuworld.com/api
-    env:
-      WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.default.svc.cluster.local:2878
+    # env:
+      # MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI: https://surf.wavefront.com/api
+      # MANAGEMENT_METRICS_EXPORT_WAVEFRONT_APITOKEN: (( wavefront-token ))
