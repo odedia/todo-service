@@ -29,15 +29,18 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-beans/5.2.7.RELEASE/spring-beans-5.2.7.RELEASE.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-aspects/5.2.7.RELEASE/spring-aspects-5.2.7.RELEASE.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-spring-boot-starter/2.0.0-SNAPSHOT/wavefront-spring-boot-starter-2.0.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-spring-boot/2.0.0-SNAPSHOT/wavefront-spring-boot-2.0.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-spring-boot-starter/2.0.0-RC1/wavefront-spring-boot-starter-2.0.0-RC1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-spring-boot/2.0.0-RC1/wavefront-spring-boot-2.0.0-RC1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-autoconfigure/2.3.1.RELEASE/spring-boot-autoconfigure-2.3.1.RELEASE.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-runtime-sdk-jvm/1.1/wavefront-runtime-sdk-jvm-1.1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-internal-reporter-java/1.5/wavefront-internal-reporter-java-1.5.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.11.0/jackson-dataformat-yaml-2.11.0.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-sdk-java/2.5/wavefront-sdk-java-2.5.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-opentracing-sdk-java/2.0/wavefront-opentracing-sdk-java-2.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-sdk-java/2.3/wavefront-sdk-java-2.3.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-opentracing-sdk-java/1.16/wavefront-opentracing-sdk-java-1.16.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/opentracing/opentracing-api/0.33.0/opentracing-api-0.33.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/opentracing/opentracing-util/0.33.0/opentracing-util-0.33.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/opentracing/opentracing-noop/0.33.0/opentracing-noop-0.33.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-runtime-sdk-jvm/0.9.10/wavefront-runtime-sdk-jvm-0.9.10.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/wavefront/wavefront-internal-reporter-java/1.3/wavefront-internal-reporter-java-1.3.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.11.0/jackson-dataformat-yaml-2.11.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-registry-wavefront/1.5.1/micrometer-registry-wavefront-1.5.1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-starter-data-rest/2.3.1.RELEASE/spring-boot-starter-data-rest-2.3.1.RELEASE.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/data/spring-data-rest-webmvc/3.3.1.RELEASE/spring-data-rest-webmvc-3.3.1.RELEASE.jar" enabled="true" runInBatchMode="false"/>
