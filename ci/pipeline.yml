@@ -1,12 +1,17 @@
 resources:
+- name: todo-ui-docker-image
+  type: docker-image
+  source:
+    username: ((harbor-username))
+    password: ((harbor-password))
+    repository: harbor.apps.cf.tanzutime.com/demo/todo-ui
+    email: ((harbor-email))
+
 - name: source-code
   type: git
   source:
-    uri: https://github.com/odedia/todos-pcf.git
+    uri: https://github.com/odedia/todo-ui.git
     branch: master
-    paths:
-    - todo-service/**/*
-    - todo-service/*
 
 - name: cf-push-resource
   type: cf
@@ -16,18 +21,17 @@ resources:
     password: ((cf-password))
     organization: ((cf-org))
     space: ((cf-space))
-    skip_cert_check: false
+    skip_cert_check: true
 
 jobs:
-- name: build-jar
+- name: push-to-pcf
   public: true
+  serial: true
   plan:
   - get: source-code
+  - get: todo-ui-docker-image
     trigger: true
-  - task: package
-    file: source-code/todo-service/ci/tasks/package.yml
   - put: cf-push-resource
     params:
-      manifest: source-code/todo-service/manifest.yml
-      path: package-output/app.jar
+      manifest: source-code/manifest-docker.yml
 
