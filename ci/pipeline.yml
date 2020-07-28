@@ -1,16 +1,16 @@
 resources:
-- name: todo-ui-docker-image
+- name: todo-service-docker-image
   type: docker-image
   source:
     username: ((harbor-username))
     password: ((harbor-password))
-    repository: harbor.apps.cf.tanzutime.com/demo/todo-ui
+    repository: harbor.apps.cf.tanzutime.com/demo/todo-service
     email: ((harbor-email))
 
 - name: source-code
   type: git
   source:
-    uri: https://github.com/odedia/todo-ui.git
+    uri: https://github.com/odedia/todo-service.git
     branch: master
 
 - name: cf-push-resource
@@ -29,7 +29,7 @@ jobs:
   serial: true
   plan:
   - get: source-code
-  - get: todo-ui-docker-image
+  - get: todo-service-docker-image
     trigger: true
   - put: cf-push-resource
     params:

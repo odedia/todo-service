@@ -6,7 +6,5 @@ applications:
     - mariadb
     routes:
     - route: todo.apps.tas.tanzuworld.com/api
-    docker:
-      image: harbor.apps.cf.tanzutime.com/demo/todo-service:latest
     env:
       WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.spring-pet-clinic.svc.cluster.local:2878
