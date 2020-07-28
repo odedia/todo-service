@@ -9,4 +9,4 @@ applications:
     docker:
       image: harbor.apps.cf.tanzutime.com/demo/todo-service:latest
     env:
-      WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.default.svc.cluster.local:2878
+      WAVEFRONT_PROXY_URL: proxy://wavefront-proxy.default.svc.cluster.local
