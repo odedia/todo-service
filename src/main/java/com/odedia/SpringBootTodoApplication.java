@@ -58,16 +58,12 @@ interface TodoRepository extends JpaRepository<Todo, Long> {
 
 @Slf4j
 @RepositoryEventHandler
-//@EnableBinding(Source.class)
 class TaskEventHandler {
-//	@Autowired Source source;
-
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
 		log.info("Saving todo: {}", todo.getTitle());
 		if (todo.getCompleted()) {
 			log.info("This Todo is completed: {}", todo.getTitle());
-//			source.output().send(MessageBuilder.withPayload(todo.getTitle()).build());
 		}
 		log.info("Completed saving todo: {}", todo.getTitle());
 	}
