@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.istack.NotNull;
 
+import brave.sampler.Sampler;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Data;
@@ -111,5 +112,10 @@ class AccessLogMicrometer {
 	public Gauge accessLogCounter(MeterRegistry registry) {
 		return Gauge.builder("todos.total", () -> repo.count()).tag("kind", "performance")
 				.description("Todos total count!").register(registry);
+	}
+	
+	@Bean
+	public Sampler defaultSampler() {
+		return Sampler.ALWAYS_SAMPLE;
 	}
 }
