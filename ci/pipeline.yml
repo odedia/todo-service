@@ -33,5 +33,5 @@ jobs:
     trigger: true
   - put: cf-push-resource
     params:
-      manifest: source-code/manifest-docker.yml
+      manifest: source-code/manifest-tas4k8s.yml
 
