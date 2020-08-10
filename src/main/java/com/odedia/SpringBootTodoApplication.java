@@ -84,7 +84,7 @@ class RestRepositoryConfigurator implements RepositoryRestConfigurer {
 @Endpoint(id = "todos")
 @RequiredArgsConstructor
 class AccessLogActuator {
-	@Autowired
+	@Autowired 
 	TodoRepository repo;
 
 	@ReadOperation
