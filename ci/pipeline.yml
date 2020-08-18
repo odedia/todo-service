@@ -34,4 +34,5 @@ jobs:
   - put: cf-push-resource
     params:
       manifest: source-code/manifest-tas4k8s.yml
-
+      environment_variables:
+        WAVEFRONT_PROXY_URL: ((wavefront-url))
