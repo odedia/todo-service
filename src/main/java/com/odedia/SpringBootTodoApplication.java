@@ -119,3 +119,8 @@ class AccessLogMicrometer {
 		return Sampler.ALWAYS_SAMPLE;
 	}
 }
+
+@Bean
+public Sampler defaultSampler() {
+	return Sampler.ALWAYS_SAMPLE;
+}
