@@ -8,6 +8,3 @@ applications:
     - route: todo.apps.tas.tanzutime.com/api
     docker:
       image: harbor.apps.cf.tanzutime.com/demo/todo-service:latest
-    env:
-      JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: false
-      SPRING_PROFILES_ACTIVE: cloud
