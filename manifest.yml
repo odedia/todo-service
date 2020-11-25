@@ -2,9 +2,7 @@
 applications:
   - name: todo-service
     memory: 1G
-    services:
-    - mysql
-    routes:
-    - route: todo.apps.tas.tanzutime.com/api
-    docker:
-      image: harbor.apps.cf.tanzutime.com/demo/todo-service:latest
+    random-route: true
+    path: target/app.jar
+    env:
+      SPRING_PROFILES_ACTIVE: cloud
