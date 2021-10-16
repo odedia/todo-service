@@ -2,6 +2,7 @@ package com.odedia;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,16 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sun.istack.NotNull;
 
 import brave.sampler.Sampler;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,10 +47,10 @@ public class SpringBootTodoApplication {
 @NoArgsConstructor
 class Todo {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	
-	@NotNull
+	@NonNull
 	private String title;
 	private Boolean completed = false;
 }
@@ -74,7 +76,7 @@ class TaskEventHandler {
 class RestRepositoryConfigurator implements RepositoryRestConfigurer {
 
 	@Override
-	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		config.exposeIdsFor(Todo.class);
 	}
 }
@@ -105,11 +107,9 @@ class AccessLogActuatorValues {
 @Configuration
 @RequiredArgsConstructor
 class AccessLogMicrometer {
-	@Autowired
-	TodoRepository repo;
-
+	
 	@Bean
-	public Gauge accessLogCounter(MeterRegistry registry) {
+	public Gauge accessLogCounter(MeterRegistry registry, TodoRepository repo) {
 		return Gauge.builder("todos.total", () -> repo.count()).tag("kind", "performance")
 				.description("Todos total count!").register(registry);
 	}

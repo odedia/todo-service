@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SpringBootTodoApplication",
+            "request": "launch",
+            "mainClass": "com.odedia.SpringBootTodoApplication",
+            "projectName": "todo-service"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-SpringBootVueApplication<todo-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
