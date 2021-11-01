@@ -3,7 +3,7 @@ kind: Workload
 metadata:
   name: todo-service
   labels:
-    apps.tanzu.vmware.com/workload-type: web-test
+    apps.tanzu.vmware.com/workload-type: web
 spec:
   serviceClaims:
   - name: mysql
