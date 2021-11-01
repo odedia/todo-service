@@ -5,12 +5,15 @@ metadata:
   labels:
     apps.tanzu.vmware.com/workload-type: web
 spec:
-  serviceClaims:
-  - name: mysql
-    ref:
-      apiVersion: with.sql.tanzu.vmware.com/v1
-      kind: MySQL
-      name: mysql
+  # serviceClaims:
+  # - name: mysql
+  #   ref:
+  #     apiVersion: with.sql.tanzu.vmware.com/v1
+  #     kind: MySQL
+  #     name: mysql
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: local
   params:
     - name: run-image
       value: harbor.apps.cf.tanzutime.com/apps/todo-service
