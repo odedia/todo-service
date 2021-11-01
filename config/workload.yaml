@@ -14,6 +14,8 @@ spec:
   params:
     - name: run-image
       value: harbor.apps.cf.tanzutime.com/apps/todo-service
+    - name: tekton-pipeline-name
+      value: developer-defined-tekton-pipeline
   source:
     git:
       url: https://github.com/odedia/todo-service
