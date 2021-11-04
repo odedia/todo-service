@@ -5,24 +5,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import brave.sampler.Sampler;
 import io.micrometer.core.instrument.Gauge;
@@ -35,11 +38,19 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @RestController
+@Slf4j
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
+
+	@GetMapping("/bla")
+	public String bla(){
+		log.info("bla");
+		return "bla";
+	}
+
 }
 
 @Entity
@@ -60,13 +71,24 @@ interface TodoRepository extends JpaRepository<Todo, Long> {
 }
 
 @Slf4j
-@RepositoryEventHandler
+@RepositoryEventHandler(Todo.class)
+@Component
 class TaskEventHandler {
+	@Autowired
+	private StreamBridge streamBridge;
+
+	@HandleBeforeCreate()
+	public void handleBeforeCreate(Todo todo) {
+		log.info("Probably fine");
+	}
+
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
 		log.info("Saving todo: {}", todo.getTitle());
+
 		if (todo.getCompleted()) {
-			log.info("This Todo is completed: {}", todo.getTitle());
+			log.info("Sending Completed Todo event for: {}", todo.getTitle());
+			streamBridge.send("output", todo.getTitle());
 		}
 		log.info("Completed saving todo: {}", todo.getTitle());
 	}
@@ -110,8 +132,8 @@ class AccessLogMicrometer {
 	
 	@Bean
 	public Gauge accessLogCounter(MeterRegistry registry, TodoRepository repo) {
-		return Gauge.builder("todos.total", () -> repo.count()).tag("kind", "performance")
-				.description("Todos total count!").register(registry);
+		return Gauge.builder("todos.total", repo::count).tag("kind", "performance")
+				.description("Todos total count!!!").register(registry);
 	}
 	
 	@Bean

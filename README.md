@@ -1,38 +1,27 @@
-# todo-service - backend for Todos on Tanzu Application Service demo application
-   
-This is a Spring-based backend for Todos on Tanzu Application Service. See https://github.com/odedia/todo-ui for the frontend.
+# tanzu-java-web-app
 
-To run locally:
+This is a sample of a Java Spring app that works with Tilt and the Tanzu Application Platform.
 
-1. Start a local wavefront proxy:
+## Dependencies
+1. [kubectl CLI](https://kubernetes.io/docs/tasks/tools/)
+1. [Tilt version >= v0.22.6](https://docs.tilt.dev/install.html)
+1. Tanzu CLI and the apps plugin v0.2.0 which are provided as part of [Tanzu Application Platform](https://network.tanzu.vmware.com/products/tanzu-application-platform)
+1. A cluster with Tanzu Application Platform, and the "Default Supply Chain", plus its dependencies. This supply chains is part of [Tanzu Application Platform](https://network.tanzu.vmware.com/products/tanzu-application-platform).
+
+## Running the sample
+
+Start the app deployment by running:
 
 ```
-docker run -d \                                                                
--e WAVEFRONT_URL=<YOUR-URL> \
--e WAVEFRONT_TOKEN=<YOUR-TOKEN> \
--e JAVA_HEAP_USAGE=512m \
--e WAVEFRONT_PROXY_ARGS="--traceZipkinListenerPorts 9411 --traceZipkinApplicationName=todo-application-local" \
--p 2878:2878 \
--p 9411:9411 \
-wavefronthq/proxy:latest
+tilt up
 ```
-2. Run `SPRING_PROFILES_ACTIVE=local mvn spring-boot:run`
 
----
+You can hit the spacebar to open the UI in a browser. 
 
-To run on TAS for VMs:
-
-1. Edit `manifest-tas4vms.yml` by pointing to your delpoyed wavefront proxy toute.
-2. Run `mvn clean package`.
-3. Run `cf push -f manifest-tas4vms.yml`
-
----
-
-To run on TAS for Kubernetes:
-
-1. Edit WAVEFRONT_URL and WAVEFRONT_TOKEN in `k8s/wavefront.yaml`
-2. Run `kubectl apply -f k8s/wavefront.yaml`
-3. Run `cf push -f manifest-tas4k8s.yml`
-
-
-
+- > If you see an "Update error" message like the one below, then just follow the instructions and allow that context:
+    ```
+    Stop! tap-beta2 might be production.
+    If you're sure you want to deploy there, add:
+        allow_k8s_contexts('tap-beta2')
+    to your Tiltfile. Otherwise, switch k8s contexts and restart Tilt.
+    ```
