@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.odedia</groupId>
-	<artifactId>todo-service-local</artifactId>
+	<artifactId>todo-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>todo-service-local</name>
+	<name>todo-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
