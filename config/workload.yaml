@@ -11,17 +11,17 @@ spec:
       apiVersion: rabbitmq.com/v1beta1
       kind: RabbitmqCluster
       name: rmq-1
-  - name: mysql
-    ref:
-      apiVersion: with.sql.tanzu.vmware.com/v1
-      kind: MySQL
-      name: mysql
-  # env:
-  #   - name: SPRING_PROFILES_ACTIVE
-  #     value: default
-  # params:
-    # - name: run-image
-    #   value: harbor.apps.cf.tanzutime.com/apps/todo-service
+  # - name: mysql
+  #   ref:
+  #     apiVersion: with.sql.tanzu.vmware.com/v1
+  #     kind: MySQL
+  #     name: mysql
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: default
+  params:
+    - name: run-image
+      value: harbor.apps.cf.tanzutime.com/apps/todo-service
     # - name: tekton-pipeline-name
     #   value: developer-defined-tekton-pipeline
   source:
