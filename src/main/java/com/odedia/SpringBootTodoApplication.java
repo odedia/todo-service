@@ -23,9 +23,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import brave.sampler.Sampler;
 import io.micrometer.core.instrument.Gauge;
@@ -38,20 +40,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @RestController
-@Slf4j
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
-
-	@GetMapping("/bla")
-	public String bla(){
-		log.info("bla");
-		return "bla";
-	}
-
-}
+ }
 
 @Entity
 @Data
@@ -140,4 +134,13 @@ class AccessLogMicrometer {
 	public Sampler defaultSampler() {
 		return Sampler.ALWAYS_SAMPLE;
 	}
+}
+
+@Configuration 
+@EnableWebMvc 
+class CorsConfig implements WebMvcConfigurer { 
+	@Override 
+	public void addCorsMappings(CorsRegistry registry) { 
+		registry.addMapping("/**").allowedOrigins("http://todo-ui.default.tanzutime.com/").allowedMethods("*");
+	} 
 }

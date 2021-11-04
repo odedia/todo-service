@@ -13,7 +13,7 @@
 	<artifactId>todo-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>todo-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Backend Service for Todo Application</description>
 
 	<properties>
 		<java.version>11</java.version>
