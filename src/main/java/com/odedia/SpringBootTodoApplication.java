@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin(origins = "*")
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
@@ -61,6 +62,7 @@ class Todo {
 }
 
 @RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
+@CrossOrigin(origins = "*")
 interface TodoRepository extends JpaRepository<Todo, Long> {
 }
 
