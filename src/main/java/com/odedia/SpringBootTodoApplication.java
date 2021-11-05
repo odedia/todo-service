@@ -86,7 +86,7 @@ class TaskEventHandler {
 
 		if (todo.getCompleted()) {
 			log.info("Sending Completed Todo event for: {}", todo.getTitle());
-			streamBridge.send("output", todo.getTitle());
+			streamBridge.send("output", "The following task was completed: " + todo.getTitle());
 		}
 		log.info("Completed saving todo: {}", todo.getTitle());
 	}
