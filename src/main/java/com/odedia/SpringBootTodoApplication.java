@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
@@ -136,6 +138,11 @@ class AccessLogMicrometer {
 	public Sampler defaultSampler() {
 		return Sampler.ALWAYS_SAMPLE;
 	}
+
+    @Bean
+    public HttpTraceRepository htttpTraceRepository() {
+            return new InMemoryHttpTraceRepository();
+    }
 }
 
 @Configuration 
@@ -146,3 +153,5 @@ class CorsConfig implements WebMvcConfigurer {
 		registry.addMapping("/**").allowedOrigins("http://todo-ui.default.tanzutime.com/").allowedMethods("*");
 	} 
 }
+
+
