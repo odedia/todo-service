@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -77,7 +77,7 @@ class TaskEventHandler {
 
 	@HandleBeforeCreate()
 	public void handleBeforeCreate(Todo todo) {
-		log.info("Probably fine");
+		log.info("Probably fine...");
 	}
 
 	@HandleBeforeSave

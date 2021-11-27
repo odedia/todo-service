@@ -11,11 +11,11 @@ spec:
       apiVersion: rabbitmq.com/v1beta1
       kind: RabbitmqCluster
       name: rmq-1
-  # - name: mysql
-  #   ref:
-  #     apiVersion: with.sql.tanzu.vmware.com/v1
-  #     kind: MySQL
-  #     name: mysql
+  - name: postgres
+    ref:
+      apiVersion: sql.tanzu.vmware.com/v1
+      kind: Postgres
+      name: postgres
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: default
