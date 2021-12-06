@@ -1,17 +1,23 @@
 allow_k8s_contexts('tap-cluster')
-load('.tanzu/tanzu_tilt_extensions.py', 'tanzu_k8s_yaml')
-
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.apps.cf.tanzutime.com/apps/todo-service')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.apps.cf.tanzutime.com/apps/todo-service-source')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
+NAMESPACE = os.getenv("NAMESPACE", default='default')
 
-custom_build('harbor.apps.cf.tanzutime.com/apps/todo-service',
-    "tanzu apps workload apply -f config/workload.yaml --live-update \
-      --local-path " + LOCAL_PATH + " --source-image " + SOURCE_IMAGE + " --yes && \
-    .tanzu/wait.sh todo-service",
-  ['pom.xml', './target/classes'],
-  live_update = [
-    sync('./target/classes', '/workspace/BOOT-INF/classes')
-  ],
-  skips_local_docker=True
+k8s_custom_deploy(
+    'todo-service',
+    apply_cmd="tanzu apps workload apply -f config/workload.yaml --live-update" +
+               " --local-path " + LOCAL_PATH +
+               " --source-image " + SOURCE_IMAGE +
+               " --namespace " + NAMESPACE +
+               " --yes >/dev/null " +
+              "&& kubectl get workload todo-service --namespace " + NAMESPACE + " -o yaml",
+    delete_cmd="tanzu apps workload delete -f config/workload.yaml --namespace " + NAMESPACE + " --yes",
+    deps=['pom.xml', './target/classes'],
+    image_selector='harbor.apps.cf.tanzutime.com/apps/todo-service',
+    live_update=[
+      sync('./target/classes', '/workspace/BOOT-INF/classes')
+    ]
 )
-tanzu_k8s_yaml('todo-service', 'harbor.apps.cf.tanzutime.com/apps/todo-service', './config/workload.yaml')
+
+k8s_resource('todo-service', port_forwards=["8080:8080"],
+            extra_pod_selectors=[{'serving.knative.dev/service': 'todo-service'}])

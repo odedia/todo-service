@@ -150,7 +150,7 @@ class AccessLogMicrometer {
 class CorsConfig implements WebMvcConfigurer { 
 	@Override 
 	public void addCorsMappings(CorsRegistry registry) { 
-		registry.addMapping("/**").allowedOrigins("http://todo-ui.default.tanzutime.com/").allowedMethods("*");
+		registry.addMapping("/**").allowedOrigins("http://todo-ui-default.apps.tanzutime.com/").allowedMethods("*");
 	} 
 }
 

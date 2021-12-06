@@ -4,28 +4,10 @@ metadata:
   name: todo-service
   labels:
     apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/part-of: todo-service
 spec:
-  serviceClaims:
-  - name: rmq
-    ref:
-      apiVersion: rabbitmq.com/v1beta1
-      kind: RabbitmqCluster
-      name: rmq-1
-  - name: postgres
-    ref:
-      apiVersion: sql.tanzu.vmware.com/v1
-      kind: Postgres
-      name: postgres
-  env:
-    - name: SPRING_PROFILES_ACTIVE
-      value: default
-  params:
-    - name: run-image
-      value: harbor.apps.cf.tanzutime.com/apps/todo-service
-    # - name: tekton-pipeline-name
-    #   value: developer-defined-tekton-pipeline
   source:
     git:
       url: https://github.com/odedia/todo-service
       ref:
-        branch: tap
+        branch: main
