@@ -1,0 +1,9 @@
+# rabbitmq-cluster.yaml
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: projected-rmq
+spec:
+  service:
+    type: LoadBalancer

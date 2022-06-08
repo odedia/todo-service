@@ -56,19 +56,19 @@ class Todo {
 }
 
 @RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
-interface TodoRepository extends JpaRepository<Todo, Long> {
+interface TodoRepository extends JpaRepository<Todo, Long> { 
 }
 
 @Slf4j
 @RepositoryEventHandler
 class TaskEventHandler {
-	@HandleBeforeSave
+	//@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
-		log.info("Saving todo: {}", todo.getTitle());
+		log.debug("Saving todo: {}", todo.getTitle());
 		if (todo.getCompleted()) {
 			log.info("This Todo is completed: {}", todo.getTitle());
 		}
-		log.info("Completed saving todo: {}", todo.getTitle());
+		log.debug("Completed saving todo: {}", todo.getTitle());
 	}
 }
 

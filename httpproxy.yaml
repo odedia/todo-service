@@ -1,0 +1,20 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: todos-proxy
+spec:
+  virtualhost:
+    fqdn: todos.test.tanzutime.com
+    tls: 
+      secretName: httpproxy-tls
+  routes:
+  - services:
+    - name: todo-ui
+      port: 80
+    conditions:
+      - prefix: /
+  - services:
+    - name: todo-service
+      port: 80
+    conditions:
+      - prefix: /api/

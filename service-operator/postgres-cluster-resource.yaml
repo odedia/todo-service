@@ -1,0 +1,9 @@
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClusterResource
+metadata:
+  name: postgres
+spec:
+  resourceRef:
+    group: sql.tanzu.vmware.com
+    kind: Postgres
+  shortDescription: It's a Postgres database!

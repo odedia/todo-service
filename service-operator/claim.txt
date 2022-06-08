@@ -1,0 +1,5 @@
+tanzu service claim create todos-db \
+  --resource-name todos-db \
+  --resource-namespace service-instances \
+  --resource-kind Postgres \
+  --resource-api-version sql.tanzu.vmware.com/v1
