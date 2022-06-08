@@ -1,0 +1,337 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: todo-api
+  description: Backend API for the Todos application
+  links:
+    - url: http://todo-service-demos.apps.taptest.tanzutime.com
+      title: API Definition
+      icon: docs
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: default-team
+  system: todo-app # Or specify system name of your choice
+  definition: |
+    openapi: 3.0.1
+    info:
+      title: OpenAPI definition
+      version: v0
+    servers:
+    - url: https://todo-service-demos.apps.taptest.tanzutime.com/api
+      description: Test environment
+    - url: https://todo-service-demos.apps.tapprod.tanzutime.com/api
+      description: Production environment
+    paths:
+      /profile:
+        get:
+          tags:
+          - profile-controller
+          operationId: listAllFormsOfMetadata_1
+          responses:
+            "200":
+              description: OK
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/RepresentationModelObject'
+      /profile/todos:
+        get:
+          tags:
+          - profile-controller
+          operationId: descriptor_1_1_1
+          responses:
+            "200":
+              description: OK
+              content:
+                '*/*':
+                  schema:
+                    type: string
+                application/alps+json:
+                  schema:
+                    type: string
+                application/schema+json:
+                  schema:
+                    $ref: '#/components/schemas/JsonSchema'
+      /todos:
+        get:
+          tags:
+          - todo-entity-controller
+          description: get-todo
+          operationId: getCollectionResource-todo-get_1
+          parameters:
+          - name: page
+            in: query
+            description: Zero-based page index (0..N)
+            required: false
+            schema:
+              minimum: 0
+              type: integer
+              default: 0
+          - name: size
+            in: query
+            description: The size of the page to be returned
+            required: false
+            schema:
+              minimum: 1
+              type: integer
+              default: 20
+          - name: sort
+            in: query
+            description: "Sorting criteria in the format: property,(asc|desc). Default\
+              \ sort order is ascending. Multiple sort criteria are supported."
+            required: false
+            schema:
+              type: array
+              items:
+                type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/PagedModelEntityModelTodo'
+                application/x-spring-data-compact+json:
+                  schema:
+                    $ref: '#/components/schemas/PagedModelEntityModelTodo'
+                text/uri-list:
+                  schema:
+                    type: string
+        post:
+          tags:
+          - todo-entity-controller
+          description: create-todo
+          operationId: postCollectionResource-todo-post
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/TodoRequestBody'
+            required: true
+          responses:
+            "201":
+              description: Created
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/EntityModelTodo'
+      /todos/{id}:
+        get:
+          tags:
+          - todo-entity-controller
+          description: get-todo
+          operationId: getItemResource-todo-get
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/EntityModelTodo'
+            "404":
+              description: Not Found
+        put:
+          tags:
+          - todo-entity-controller
+          description: update-todo
+          operationId: putItemResource-todo-put
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/TodoRequestBody'
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/EntityModelTodo'
+            "201":
+              description: Created
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/EntityModelTodo'
+            "204":
+              description: No Content
+        delete:
+          tags:
+          - todo-entity-controller
+          description: delete-todo
+          operationId: deleteItemResource-todo-delete
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "204":
+              description: No Content
+            "404":
+              description: Not Found
+        patch:
+          tags:
+          - todo-entity-controller
+          description: patch-todo
+          operationId: patchItemResource-todo-patch
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/TodoRequestBody'
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/hal+json:
+                  schema:
+                    $ref: '#/components/schemas/EntityModelTodo'
+            "204":
+              description: No Content
+    components:
+      schemas:
+        AbstractJsonSchemaPropertyObject:
+          type: object
+          properties:
+            title:
+              type: string
+            readOnly:
+              type: boolean
+        Item:
+          type: object
+          properties:
+            type:
+              type: string
+            properties:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AbstractJsonSchemaPropertyObject'
+            requiredProperties:
+              type: array
+              items:
+                type: string
+        JsonSchema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            properties:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AbstractJsonSchemaPropertyObject'
+            requiredProperties:
+              type: array
+              items:
+                type: string
+            definitions:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/Item'
+            type:
+              type: string
+            $schema:
+              type: string
+        Links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+        RepresentationModelObject:
+          type: object
+          properties:
+            _links:
+              $ref: '#/components/schemas/Links'
+        EntityModelTodo:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            title:
+              type: string
+            completed:
+              type: boolean
+            _links:
+              $ref: '#/components/schemas/Links'
+        PageMetadata:
+          type: object
+          properties:
+            size:
+              type: integer
+              format: int64
+            totalElements:
+              type: integer
+              format: int64
+            totalPages:
+              type: integer
+              format: int64
+            number:
+              type: integer
+              format: int64
+        PagedModelEntityModelTodo:
+          type: object
+          properties:
+            _embedded:
+              type: object
+              properties:
+                todos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntityModelTodo'
+            _links:
+              $ref: '#/components/schemas/Links'
+            page:
+              $ref: '#/components/schemas/PageMetadata'
+        TodoRequestBody:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            title:
+              type: string
+            completed:
+              type: boolean
+        Link:
+          type: object
+          properties:
+            href:
+              type: string
+            hreflang:
+              type: string
+            title:
+              type: string
+            type:
+              type: string
+            deprecation:
+              type: string
+            profile:
+              type: string
+            name:
+              type: string
+            templated:
+              type: boolean
