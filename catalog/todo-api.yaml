@@ -11,7 +11,7 @@ spec:
   type: openapi
   lifecycle: experimental
   owner: default-team
-  system: todo-app # Or specify system name of your choice
+  system: todos # Or specify system name of your choice
   definition: |
     openapi: 3.0.1
     info:
