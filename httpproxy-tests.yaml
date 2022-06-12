@@ -13,8 +13,16 @@ spec:
       port: 80
     conditions:
       - prefix: /
+    requestHeadersPolicy:
+      set:
+      - name: Host
+        value: todo-ui-demos.apps.taptest.tanzutime.com
   - services:
     - name: todo-service
       port: 80
     conditions:
-      - prefix: /api/
+      - prefix: /api
+    requestHeadersPolicy:
+      set:
+      - name: Host
+        value: todo-service-demos.apps.taptest.tanzutime.com
