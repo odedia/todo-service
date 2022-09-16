@@ -15,7 +15,7 @@ spec:
     git:
       url: https://github.com/odedia/todo-service
       ref:
-        branch: master
+        branch: main
   # serviceClaims:
   # - name: todos-db
   #   ref:
