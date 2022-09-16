@@ -10,11 +10,12 @@ metadata:
     - web
     - tanzu
   annotations:
-    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=todo-app'
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=todos-app'
 spec:
   type: service
   lifecycle: experimental
   owner: default-team
+  system: todos
   providesApis: # list of APIs provided by the Component
     - todo-api
 

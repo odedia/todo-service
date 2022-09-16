@@ -16,9 +16,18 @@ spec:
       url: https://github.com/odedia/todo-service
       ref:
         branch: master
+<<<<<<< HEAD
   # serviceClaims:
   # - name: todos-db
   #   ref:
   #     apiVersion: services.apps.tanzu.vmware.com/v1alpha1
   #     kind: ResourceClaim
   #     name: todos-db
+=======
+  serviceClaims:
+  - name: todos-db
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: todos-db
+>>>>>>> 23e268e2f7dce25d98a8539638365180796cc4c3
