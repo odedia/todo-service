@@ -1,3 +1,11 @@
+cd postgres-for-kubernetes-v1.7.3/operator
+
+helm install my-postgres-operator . \
+    --values=./values.yaml \
+    --namespace=postgres-operator --wait
+
+cd ../..
+
 tanzu service claim create todos-db \
   --resource-name todos-db \
   --resource-namespace service-instances \
