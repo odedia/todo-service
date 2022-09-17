@@ -19,6 +19,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
@@ -39,6 +40,12 @@ public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootTodoApplication.class, args);
+	}
+
+	@GetMapping("/slow")
+	public String slowRequest() throws InterruptedException{ 
+		Thread.sleep(250);
+		return "ok";
 	}
 }
 

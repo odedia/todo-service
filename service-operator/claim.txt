@@ -6,8 +6,13 @@ helm install my-postgres-operator . \
 
 cd ../..
 
+k apply -f todos-postgres-instance.yaml
+k apply -f todos-postgres-resource-claim.yaml
+
 tanzu service claim create todos-db \
   --resource-name todos-db \
   --resource-namespace service-instances \
   --resource-kind Postgres \
   --resource-api-version sql.tanzu.vmware.com/v1
+
+tanzu services claims get todos-db --namespace demos
