@@ -1,0 +1,32 @@
+tanzu package repository add tanzu-data-services-repository \
+  --url registry.tanzu.vmware.com/packages-for-vmware-tanzu-data-services/tds-packages:1.1.0 \
+  -n tap-install
+
+tanzu package install postgres-operator --package-name postgres-operator.sql.tanzu.vmware.com --version 1.8.0 \
+  -n tap-install \
+  -f ../../../acc-content/services/postgres/create/postgres-operator-values.yaml
+
+
+k apply -f .
+
+tanzu services classes list
+
+tanzu services claimable list --class todos-db
+
+tanzu service claim create todos-db-claim \
+  --resource-name todos-db \
+  --resource-kind Postgres \
+  --resource-api-version sql.tanzu.vmware.com/v1
+
+
+tanzu services claims get todos-db-claim --namespace demos
+
+Add to workload yaml:
+
+  serviceClaims:
+  - name: db
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: todos-db-claim
+

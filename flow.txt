@@ -1,0 +1,51 @@
+
+@Entity
+@Data
+@NoArgsConstructor
+class Todo {
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private Long id;
+	
+	@NonNull
+	private String title;
+	private Boolean completed = false;
+}
+
+
+@RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
+interface TodoRepository extends JpaRepository<Todo, Long> { 
+}
+
+
+@Slf4j
+@RepositoryEventHandler(Todo.class)
+class TaskEventHandler {
+	@HandleBeforeSave
+	public void handleBeforeSave(Todo todo) {
+		log.debug("Saving todo: {}", todo.getTitle());
+		if (todo.getCompleted()) {
+			log.info("This Todo is completed: {}", todo.getTitle());
+		}
+		log.debug("Completed saving todo: {}", todo.getTitle());
+	}
+}
+
+
+	@GetMapping("/slow")
+	public String slowRequest() throws InterruptedException{ 
+		Thread.sleep(250);
+		return "ok";
+	}
+
+
+
+  serviceClaims:
+  - name: db
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: todos-db-claim
+
+
+    	    <version>42.5.0</version>
