@@ -7,6 +7,10 @@ metadata:
     apps.tanzu.vmware.com/has-tests: "true"
     app.kubernetes.io/part-of: todos-app
 spec:
+  build:
+    env:
+    - name: BP_JVM_VERSION
+      value: "17"
   params:
   - name: annotations
     value:
@@ -17,8 +21,8 @@ spec:
       ref:
         branch: main
   serviceClaims:
-  - name: todos-db
+  - name: db
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
-      name: todos-db
+      name: todos-db-claim

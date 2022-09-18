@@ -39,6 +39,11 @@ import lombok.extern.slf4j.Slf4j;
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
+		System.out.println(System.getProperty("\n\n\n-----------------\n\n\n"));
+		System.out.println(System.getProperty("POSTGRES_URL"));
+		System.out.println(System.getProperty("POSTGRES_USER"));
+		System.out.println(System.getProperty("POSTGRES_PASS"));
+		System.out.println(System.getProperty("\n\n\n-----------------\n\n\n"));
 		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
 
@@ -67,7 +72,8 @@ interface TodoRepository extends JpaRepository<Todo, Long> {
 }
 
 @Slf4j
-@RepositoryEventHandler
+@RepositoryEventHandler(Todo.class)
+@Component
 class TaskEventHandler {
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
