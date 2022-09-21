@@ -1,6 +1,3 @@
-service-operator/operator/
-service-operator/postgres-for-kubernetes-v1.7.3/
-.idea
 *.java.hsp
 *.sonarj
 *.sw*
