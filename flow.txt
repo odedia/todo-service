@@ -40,12 +40,7 @@ class TaskEventHandler {
 
 
 
-  serviceClaims:
-  - name: db
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: todos-db-claim
+
 
 
     	    <version>42.5.0</version>

@@ -15,8 +15,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,16 @@ public class SpringBootTodoApplication {
 		return new InMemoryHttpTraceRepository();
 	}
 
+}
+
+
+@Component
+class RestRepositoryConfigurator implements RepositoryRestConfigurer {
+
+	@Override
+	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
+		config.exposeIdsFor(Todo.class);
+	}
 }
 
 @Entity

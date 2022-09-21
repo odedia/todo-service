@@ -1,5 +1,5 @@
 allow_k8s_contexts('tap-gke-iterate')
-allow_k8s_contexts('tap')
+allow_k8s_contexts('tap-iterate')
 SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.apps.cf.tanzutime.com/apps/todo-service')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='default')

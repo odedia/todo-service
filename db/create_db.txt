@@ -4,10 +4,13 @@ tanzu package repository add tanzu-data-services-repository \
 
 tanzu package install postgres-operator --package-name postgres-operator.sql.tanzu.vmware.com --version 1.8.0 \
   -n tap-install \
-  -f ../../../acc-content/services/postgres/create/postgres-operator-values.yaml
+  -f postgres-operator-values.yaml
 
+Create a storageclass called "standard" because the database doesn't work with any other sc.
 
 k apply -f .
+
+
 
 tanzu services classes list
 

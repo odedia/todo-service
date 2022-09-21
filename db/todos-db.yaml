@@ -5,7 +5,8 @@ metadata:
 spec:
   memory: 800Mi
   cpu: "0.8"
-  storageClassName: standard
+  storageClassName: vc01cl01-t0compute
+  monitorStorageClassName: vc01cl01-t0compute
   storageSize: 10G
   pgConfig:
     dbname: todos-db
