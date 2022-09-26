@@ -11,7 +11,7 @@ spec:
     title: Todos Gateway
     description: The entrypoint for the Todos application
     version: 1.0.0
-    serverUrl: #@ "https://todos.{}".format(data.values.ingress.fqdn)
+    serverUrl: #@ "https://todos.apps.{}".format(data.values.ingress.domain)
   env:
     - name: spring.cloud.gateway.httpclient.connect-timeout
       value: "90"

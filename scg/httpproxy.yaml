@@ -6,7 +6,7 @@ metadata:
   name: todos-proxy
 spec:
   virtualhost:
-    fqdn: #@ "todos.{}".format(data.values.ingress.fqdn)
+    fqdn: #@ "todos.{}".format(data.values.ingress.domain)
     tls: 
       secretName: #@ "tanzu-system-ingress/{}".format(data.values.ingress.contour_tls_secret)
   routes:
