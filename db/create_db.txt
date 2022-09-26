@@ -6,8 +6,6 @@ tanzu package install postgres-operator --package-name postgres-operator.sql.tan
   -n tap-install \
   -f postgres-operator-values.yaml
 
-Create a storageclass called "standard" because the database doesn't work with any other sc.
-
 k apply -f .
 
 
