@@ -1,0 +1,24 @@
+apiVersion: tanzu.vmware.com/v1
+kind: SpringCloudGatewayRouteConfig
+metadata:
+  name: todo-service-route-config
+spec:
+  routes:
+  - predicates:
+    - Path=/api/**
+    filters:
+    - StripPrefix=1
+    tags:
+    - backend
+  service:
+    name: todo-service
+---
+apiVersion: "tanzu.vmware.com/v1"
+kind: SpringCloudGatewayMapping
+metadata:
+  name: todo-service-route-mapping
+spec:
+  gatewayRef:
+    name: todos-gateway
+  routeConfigRef:
+    name: todo-service-route-config
