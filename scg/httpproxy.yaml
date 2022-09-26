@@ -8,7 +8,7 @@ spec:
   virtualhost:
     fqdn: #@ "todos.apps.{}".format(data.values.ingress.domain)
     tls: 
-      secretName: #@ "tanzu-system-ingress/{}".format(data.values.ingress.contour_tls_secret)
+      secretName: #@ "tanzu-system-ingress/cnr-{}".format(data.values.ingress.contour_tls_secret)
   routes:
   - services:
     - name: todos-gateway
