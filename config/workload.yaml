@@ -6,6 +6,7 @@ metadata:
     apps.tanzu.vmware.com/workload-type: web
     apps.tanzu.vmware.com/has-tests: "true"
     app.kubernetes.io/part-of: todos-app
+    apis.apps.tanzu.vmware.com/register-api: "true"
 spec:
   build:
     env:
@@ -15,6 +16,14 @@ spec:
   - name: annotations
     value:
       autoscaling.knative.dev/minScale: "1"
+  - name: api_descriptor
+    value:
+      type: openapi
+      location: 
+        path: "/v3/api-docs"
+      owner: default-team
+      system: todos
+      description: "A set of API endpoints to manage the resources within the todos app."
   source:
     git:
       url: https://github.com/odedia/todo-service
