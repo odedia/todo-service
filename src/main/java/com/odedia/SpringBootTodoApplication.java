@@ -65,7 +65,6 @@ class Todo {
 }
 
 @RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
-@CrossOrigin(maxAge = 3600, origins = "https://tap-gui.view.tanzutime.com")
 interface TodoRepository extends JpaRepository<Todo, Long> { 
 }
 
@@ -81,4 +80,14 @@ class TaskEventHandler {
 		}
 		log.debug("Completed saving todo: {}", todo.getTitle());
 	}
+}
+
+@Configuration
+@EnableWebMvc
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 }
