@@ -18,6 +18,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import lombok.Data;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @Configuration
+@CrossOrigin(maxAge = 3600)
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
