@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @Configuration
-@CrossOrigin(maxAge = 3600)
 public class SpringBootTodoApplication {
 
 	public static void main(String[] args) {
@@ -66,6 +65,7 @@ class Todo {
 }
 
 @RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
+@CrossOrigin(maxAge = 3600)
 interface TodoRepository extends JpaRepository<Todo, Long> { 
 }
 
