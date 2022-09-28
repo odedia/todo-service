@@ -65,7 +65,7 @@ class Todo {
 }
 
 @RepositoryRestResource(collectionResourceRel = "todos", path = "todos")
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600, origins = "https://tap-gui.view.tanzutime.com")
 interface TodoRepository extends JpaRepository<Todo, Long> { 
 }
 
