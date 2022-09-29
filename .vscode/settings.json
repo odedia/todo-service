@@ -1,5 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
     "java.configuration.updateBuildConfiguration": "automatic",
-    "extensions.ignoreRecommendations": true
+    "extensions.ignoreRecommendations": true,
+    "java.server.launchMode": "Standard"
 }
