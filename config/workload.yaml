@@ -1,12 +1,16 @@
+#@load("@ytt:data","data")
+---
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: todo-service
+  name: #@ data.value.artifactId
   labels:
     apps.tanzu.vmware.com/workload-type: web
     apps.tanzu.vmware.com/has-tests: "true"
-    app.kubernetes.io/part-of: todos-app
+    app.kubernetes.io/part-of: #@ data.value.artifactId
+    #@ if data.values.includeApiDocs:
     apis.apps.tanzu.vmware.com/register-api: "true"
+    #@ end
 spec:
   build:
     env:
@@ -16,6 +20,7 @@ spec:
   - name: annotations
     value:
       autoscaling.knative.dev/minScale: "1"
+  #@ if data.values.includeApiDocs:
   - name: api_descriptor
     value:
       type: openapi
@@ -24,14 +29,17 @@ spec:
       owner: default-team
       system: todos
       description: "A set of API endpoints to manage the resources within the todos app."
+  #@ end
   source:
     git:
-      url: https://github.com/odedia/todo-service
+      url: https://github.com/vabbi-tap/todo-service
       ref:
         branch: main
+  #@ if data.values.dbType == "postgres":
   serviceClaims:
   - name: db
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
-      name: todos-db-claim
+      name: #@ data.values.dbName
+  #@ end
