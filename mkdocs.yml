@@ -1,0 +1,7 @@
+site_name: 'Todo Service'
+
+nav:
+  - Readme: README.md
+
+plugins:
+  - techdocs-core
