@@ -1,0 +1,61 @@
+accelerator:
+  displayName: Todo Service
+  description: A spring Spring To Do application
+  tags:
+  - java
+  - spring
+  - sql
+  - educational
+
+  options:
+  - label: Include API Docs
+    defaultValue: false
+    name: includeApiDocs
+    inputType: checkbox
+    dataType: boolean
+    required: true
+  - label: Include Technical Documentation
+    defaultValue: false
+    name: includeTechDocs
+    inputType: checkbox
+    dataType: boolean
+    required: true
+  - label: Database Type
+    description: The type of database that services will connenct to.
+    inputType: select
+    defaultValue: h2
+    name: dbType
+    choices:
+    - value: postgres
+      text: PostgreSQL
+    - value: h2
+      text: H2 (In Memory DB)
+    required: true
+  - label: Database Name
+    description: The name of the database instance that the application services will connect to.
+    defaultValue: todo
+    name: dbName
+    inputType: text
+    dataType: string
+    required: true
+    dependsOn: 
+      name: dbType
+      value: postgres
+
+engine:
+  merge:
+  - exclude: 
+      ["**/db/**", "**/site/**", "**/docs/**", "**/config/**"]
+  - include: ["**/config/workload.yaml"]
+    chain:
+    - type: YTT
+  - condition: "#dbType == 'postgres'"
+    include: ["db/todos-db.yaml"]
+    chain:
+    - type: YTT 
+  - condition:
+      "#dbType == 'postgres'"
+    include: ["db/clusterinstanceclass.yaml"]    
+  - condition:
+      "#includeTechDocs"
+    include: ["docs/**"]
