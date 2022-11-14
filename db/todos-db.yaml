@@ -1,7 +1,9 @@
+#@load("@ytt:data","data")
+---
 apiVersion: sql.tanzu.vmware.com/v1
 kind: Postgres
 metadata:
-  name: todos-db
+  name: #@ data.values.dbName
 spec:
   memory: 800Mi
   cpu: "0.8"
@@ -9,6 +11,6 @@ spec:
   monitorStorageClassName: vc01cl01-t0compute
   storageSize: 10G
   pgConfig:
-    dbname: todos-db
+    dbname: #@ data.values.dbName
     username: pgadmin
     appUser: tanzu
