@@ -55,7 +55,9 @@ engine:
     - type: YTT 
   - condition:
       "#dbType == 'postgres'"
-    include: ["db/clusterinstanceclass.yaml"]    
+    include: ["db/clusterinstanceclass.yaml"]  
+    chain:
+    - type: YTT 
   - condition:
       "#includeTechDocs"
     include: ["docs/**"]
