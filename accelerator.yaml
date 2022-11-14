@@ -45,7 +45,7 @@ accelerator:
 engine:
   merge:
   - exclude: 
-      ["**/db/**", "**/site/**", "**/docs/**", "**/config/**"]
+      ["**/db/**", "**/site/**", "**/docs/**", "**/config/**", "mkdocs.yml", "README.md"]
   - include: ["**/config/workload.yaml"]
     chain:
     - type: YTT
@@ -59,3 +59,19 @@ engine:
   - condition:
       "#includeTechDocs"
     include: ["docs/**"]
+    chain:
+    - type: ReplaceText
+      substitutions:
+      - text: "todo-service"
+        with: "#artifactId"
+  - condition:
+      "#includeTechDocs"
+    include: ["mkdocs.yml"]
+    chain:
+    - type: YTT
+  - include: ["README.md"]
+    chain:
+    - type: ReplaceText
+      substitutions:
+      - text: "todo-service"
+        with: "#artifactId"
