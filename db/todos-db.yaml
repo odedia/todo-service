@@ -1,4 +1,4 @@
-#@load("@ytt:data","data")
+#@ load("@ytt:data","data")
 ---
 apiVersion: sql.tanzu.vmware.com/v1
 kind: Postgres
