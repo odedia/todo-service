@@ -1,8 +1,9 @@
+#@ load("@ytt:data","data")
 ---
 apiVersion: services.apps.tanzu.vmware.com/v1alpha1
 kind: ClusterInstanceClass
 metadata:
-  name: todos-db
+  name: #@ data.values.dbName
 spec:
   description:
     short: PostgreSQL Database
