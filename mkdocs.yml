@@ -1,4 +1,6 @@
-site_name: 'Todo Service'
+#@ load("@ytt:data","data")
+---
+site_name: #@ data.values.artifactId
 
 nav:
   - Readme: docs/index.md
