@@ -6,10 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
@@ -36,10 +33,10 @@ public class SpringBootTodoApplication {
 		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
 
-	@Bean
-	public HttpTraceRepository htttpTraceRepository() {
-		return new InMemoryHttpTraceRepository();
-	}
+	// @Bean
+	// public HttpTraceRepository htttpTraceRepository() {
+	// 	return new InMemoryHttpTraceRepository();
+	// }
 
 }
 
