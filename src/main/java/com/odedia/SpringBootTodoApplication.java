@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -73,9 +74,16 @@ interface TodoRepository extends JpaRepository<Todo, Long> {
 @RepositoryEventHandler(Todo.class)
 @Component
 class TaskEventHandler {
+	@HandleBeforeCreate
+	public void handleBeforeCreate(Todo todo) {
+		log.debug("Creating todo: {}", todo.getTitle());
+		todo.setTitle("S1T " + todo.getTitle());
+	}
+
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
 		log.debug("Saving todo: {}", todo.getTitle());
+		// todo.setTitle("S1T " + todo.getTitle());
 		if (todo.getCompleted()) {
 			log.info("This Todo is completed: {}", todo.getTitle());
 		}
