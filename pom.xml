@@ -18,8 +18,6 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
-		<repackage.classifier/>
-		<spring-native.version>0.12.1</spring-native.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,11 +54,6 @@
 			<version>2.7.1</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.experimental</groupId>
-			<artifactId>spring-native</artifactId>
-			<version>${spring-native.version}</version>
-  	    </dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
