@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0</version>
+		<version>2.7.5</version>
 		<relativePath />
 	</parent>
 	<groupId>com.odedia</groupId>
@@ -36,7 +36,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<dependency>
+ 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
@@ -47,6 +47,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.6.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -75,9 +76,9 @@
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.9</version>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.6.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -85,6 +86,7 @@
 			<version>1.6.9</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>app</finalName>
 		<plugins>
