@@ -1,5 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.server.launchMode": "Standard"
+    "java.server.launchMode": "Standard",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
