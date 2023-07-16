@@ -38,19 +38,17 @@ spec:
 ---
 
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Resource
 metadata:
   name: postgres-db
-  description: The PostgreSQL database for the todo service
+  description: The Postgres database for todo tasks
   annotations:
-    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service
-    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/postgres-db.yaml
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: database
   lifecycle: production
   owner: team-tanzu
   system: todos
-  domain: tanzu-domain
 
 ---
 
