@@ -11,9 +11,9 @@ spec:
   owner: team-tanzu
   system: todo-system
   providesApi:
-    - todo-api
+    - api:default/todo-api
   dependsOn:
-    - postgres-db
+    - component:default/postgres-db
 
 ---
 
@@ -30,7 +30,7 @@ spec:
   owner: team-tanzu
   system: todo-system
   consumesApi:
-    - todo-api
+    - api:default/todo-api
 
 ---
 
