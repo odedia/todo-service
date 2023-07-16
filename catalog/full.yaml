@@ -76,7 +76,7 @@ spec:
   lifecycle: experimental
   owner: team-tanzu
   system: todos
-  definition: <openAPI-specification>
+  definition: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml
 
 ---
 
