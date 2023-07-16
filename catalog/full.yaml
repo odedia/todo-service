@@ -60,14 +60,14 @@ metadata:
   name: todo-api
   description: Backend API for the Todos application
   annotations:
-    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service/blob/main/catalog/todo-api.yaml
-    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todo-api.yaml
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service/blob/main/catalog/todo-api-demo.yaml
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todo-api-demo.yaml
 spec:
   type: openapi
   lifecycle: experimental
   owner: team-tanzu
   system: todos
-  definition: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml
+  definition: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api-demo.yaml
 
 ---
 
