@@ -1,0 +1,57 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: todo-system
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: team-tanzu
+  domain: production
+  description: The system for managing todo items
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: todo-ui
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: team-tanzu
+  system: todo-system
+  description: The user interface for the todo system
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: todo-service
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: team-tanzu
+  system: todo-system
+  description: The backend service for the todo system
+  dependsOn:
+    - postgres-db
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: postgres-db
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: database
+  lifecycle: production
+  owner: team-tanzu
+  system: todo-system
+  description: Postgres database for the todo system
