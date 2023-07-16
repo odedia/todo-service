@@ -59,7 +59,7 @@ spec:
   lifecycle: experimental
   owner: team-tanzu
   system: todo-system
-  definition: "https://raw.githubusercontent.com/odedia/todo-service/main/openapi.yaml"
+  definition: "https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml"
 
 ---
 
