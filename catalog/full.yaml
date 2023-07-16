@@ -24,7 +24,7 @@ spec:
   system: todo-system
   description: The user interface for the todo system
   consumesApis:
-    - todo-service-api
+    - api:default/todo-service-api
 
 ---
 
@@ -41,9 +41,9 @@ spec:
   system: todo-system
   description: The backend service for the todo system
   dependsOn:
-    - postgres-db
+    - resource:default/postgres-db
   providesApis:
-    - todo-service-api
+    - api:default/todo-service-api
 
 ---
 
