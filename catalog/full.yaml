@@ -1,86 +1,93 @@
 apiVersion: backstage.io/v1alpha1
-kind: Group
-metadata:
-  name: team-tanzu
-  description: The team Tanzu.
-spec:
-  type: team
-  profile:
-    displayName: Team Tanzu
-    pictureUrl: https://placeimg.com/240/240/nature
-  parent: tanzu-domain
----
-apiVersion: backstage.io/v1alpha1
 kind: Domain
 metadata:
   name: tanzu-domain
-  description: The domain of team Tanzu.
-spec: {}
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: todo-ui
-  description: The UI for the todo system.
-  annotations:
-    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
-  labels:
-    system: todo-system
-    domain: tanzu-domain
-  owner: team-tanzu
+  description: The Tanzu domain
 spec:
-  type: website
-  lifecycle: production
-  providesApis:
-    - todo-service-api
+  owner: team-tanzu
+
 ---
+
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: todo-service
-  description: The service for the todo system.
+  description: The main service for managing todos
   annotations:
-    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
-  labels:
-    system: todo-system
-    domain: tanzu-domain
-  owner: team-tanzu
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todo-service.yaml
 spec:
   type: service
   lifecycle: production
-  consumesApis:
-    - todo-service-api
-  dependsOn:
-    - postgres-db
+  owner: team-tanzu
+  providesApis:
+    - todo-api
+  system: todos
+  domain: tanzu-domain
+
 ---
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: todo-ui
+  description: The user interface for managing todos
+  annotations:
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todo-ui.yaml
+spec:
+  type: website
+  lifecycle: production
+  owner: team-tanzu
+  system: todos
+  domain: tanzu-domain
+  consumesApis:
+    - todo-api
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: postgres-db
+  description: The PostgreSQL database for the todo service
+  annotations:
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/postgres-db.yaml
+spec:
+  type: database
+  lifecycle: production
+  owner: team-tanzu
+  system: todos
+  domain: tanzu-domain
+
+---
+
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: todo-service-api
-  description: The API for the todo-service component.
+  name: todo-api
+  description: Backend API for the Todos application
   annotations:
-    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
-  labels:
-    system: todo-system
-    domain: tanzu-domain
-  owner: team-tanzu
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service/blob/main/catalog/todo-api.yaml
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todo-api.yaml
 spec:
   type: openapi
-  lifecycle: production
+  lifecycle: experimental
   owner: team-tanzu
-  system: todo-system
-  definitionAtLocation: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml
+  system: todos
+  definition: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml
+
 ---
+
 apiVersion: backstage.io/v1alpha1
-kind: Resource
+kind: System
 metadata:
-  name: postgres-db
-  description: The Postgres database for the todo system.
+  name: todos
+  description: The system for the todo service
   annotations:
-    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
-  labels:
-    system: todo-system
-    domain: tanzu-domain
-  owner: team-tanzu
+    backstage.io/techdocs-ref: url:https://github.com/odedia/todo-service
+    backstage.io/managed-by-location: github:https://github.com/odedia/todo-service/blob/main/catalog/todos.yaml
 spec:
-  type: database
+  owner: team-tanzu
+  domain: tanzu-domain
