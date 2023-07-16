@@ -67,7 +67,7 @@ spec:
   lifecycle: experimental
   owner: team-tanzu
   system: todos
-  definition: 
+  definition: |
     openapi: '3.0.2'
 
 ---
