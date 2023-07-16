@@ -23,6 +23,8 @@ spec:
   owner: team-alpha
   system: todo-system
   description: The user interface for the todo system
+  dependsOn:
+    - "Component:todo-service"
 
 ---
 
