@@ -15,7 +15,8 @@ spec:
     - todo-api
   system: todos
   domain: tanzu-domain
-
+  dependsOn:
+    - "Resource:postgres-db"
 ---
 
 apiVersion: backstage.io/v1alpha1
