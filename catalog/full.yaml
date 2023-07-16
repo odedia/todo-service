@@ -23,8 +23,8 @@ spec:
   owner: team-tanzu
   system: todo-system
   description: The user interface for the todo system
-  dependsOn:
-    - "Component:todo-service"
+  consumesApi:
+    - "todo-service-api"
 
 ---
 
@@ -42,6 +42,26 @@ spec:
   description: The backend service for the todo system
   dependsOn:
     - "Resource:postgres-db"
+  providesApi:
+    - "todo-service-api"
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: todo-service-api
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-tanzu
+  system: todo-system
+  description: API provided by the todo service
+  definition: 
+    openapi: '3.0.2'
+    # Further API specification goes here
 
 ---
 
