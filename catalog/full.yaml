@@ -57,3 +57,18 @@ spec:
   owner: team-tanzu
   system: todo-system
   description: Postgres database for the todo system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-tanzu
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: team
+  profile:
+    displayName: Tanzu Team
+    picture: https://secure.meetupstatic.com/photos/event/8/a/2/0/600_512855360.webp
+  parent: tanzu-domain
+  description: The Tanzu team responsible for the todo system
+
