@@ -1,77 +1,86 @@
 apiVersion: backstage.io/v1alpha1
-kind: System
+kind: Group
 metadata:
-  name: todo-system
-  annotations:
-    backstage.io/techdocs-ref: dir:.
+  name: team-tanzu
+  description: The team Tanzu.
 spec:
-  owner: team-tanzu
-  domain: production
-  description: The system for managing todo items
-
+  type: team
+  profile:
+    displayName: Team Tanzu
+    pictureUrl: https://placeimg.com/240/240/nature
+  parent: tanzu-domain
 ---
-
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: tanzu-domain
+  description: The domain of team Tanzu.
+spec: {}
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: todo-ui
+  description: The UI for the todo system.
   annotations:
-    backstage.io/techdocs-ref: dir:.
-spec:
-  type: service
-  lifecycle: production
+    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
+  labels:
+    system: todo-system
+    domain: tanzu-domain
   owner: team-tanzu
-  system: todo-system
-  description: The user interface for the todo system
-  consumesApis:
-    - api:default/todo-service-api
-
+spec:
+  type: website
+  lifecycle: production
+  providesApis:
+    - todo-service-api
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: todo-service
+  description: The service for the todo system.
   annotations:
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
+  labels:
+    system: todo-system
+    domain: tanzu-domain
+  owner: team-tanzu
 spec:
   type: service
   lifecycle: production
-  owner: team-tanzu
-  system: todo-system
-  description: The backend service for the todo system
+  consumesApis:
+    - todo-service-api
   dependsOn:
-    - resource:default/postgres-db
-  providesApis:
-    - api:default/todo-service-api
-
+    - postgres-db
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: todo-service-api
-  description: Backend API for the Todos application
+  description: The API for the todo-service component.
   annotations:
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
+  labels:
+    system: todo-system
+    domain: tanzu-domain
+  owner: team-tanzu
 spec:
   type: openapi
-  lifecycle: experimental
+  lifecycle: production
   owner: team-tanzu
   system: todo-system
-  definition: "https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml"
-
+  definitionAtLocation: url:https://raw.githubusercontent.com/odedia/todo-service/main/catalog/todo-api.yaml
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
   name: postgres-db
+  description: The Postgres database for the todo system.
   annotations:
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/managed-by-location: url:https://github.com/odedia/todo-service/tree/main/catalog-info.yaml
+  labels:
+    system: todo-system
+    domain: tanzu-domain
+  owner: team-tanzu
 spec:
   type: database
-  lifecycle: production
-  owner: team-tanzu
-  system: todo-system
-  description: The database for storing todo items
