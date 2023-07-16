@@ -13,7 +13,7 @@ spec:
   providesApi:
     - api:default/todo-api
   dependsOn:
-    - component:default/postgres-db
+    - resource:default/postgres-db
 
 ---
 
@@ -35,7 +35,7 @@ spec:
 ---
 
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Resource
 metadata:
   name: postgres-db
   description: The Postgres database for todo tasks
