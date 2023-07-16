@@ -39,8 +39,7 @@ spec:
   system: todo-system
   description: The backend service for the todo system
   dependsOn:
-    - kind: Resource
-      name: postgres-db
+    - "Resource:postgres-db"
 
 ---
 
