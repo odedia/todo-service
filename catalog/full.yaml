@@ -5,7 +5,7 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
-  owner: team-tanzu
+  owner: team-alpha
   domain: production
   description: The system for managing todo items
 
@@ -20,7 +20,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: team-tanzu
+  owner: team-alpha
   system: todo-system
   description: The user interface for the todo system
 
@@ -35,7 +35,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: team-tanzu
+  owner: team-alpha
   system: todo-system
   description: The backend service for the todo system
   dependsOn:
@@ -52,6 +52,6 @@ metadata:
 spec:
   type: database
   lifecycle: production
-  owner: team-tanzu
+  owner: team-alpha
   system: todo-system
   description: Postgres database for the todo system
