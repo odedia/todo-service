@@ -1,12 +1,3 @@
-apiVersion: backstage.io/v1alpha1
-kind: Domain
-metadata:
-  name: tanzu-domain
-  description: The Tanzu domain
-spec:
-  owner: team-tanzu
-
----
 
 apiVersion: backstage.io/v1alpha1
 kind: Component
