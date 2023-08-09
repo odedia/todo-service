@@ -77,7 +77,7 @@ class TaskEventHandler {
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Todo todo) {
 		log.debug("Creating todo: {}", todo.getTitle());
-		// todo.setTitle("Awesome new task: " + todo.getTitle());
+		todo.setTitle("" + todo.getTitle());
 	}
 
 	@HandleBeforeSave
