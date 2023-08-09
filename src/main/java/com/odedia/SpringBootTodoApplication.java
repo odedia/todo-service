@@ -77,13 +77,13 @@ class TaskEventHandler {
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Todo todo) {
 		log.debug("Creating todo: {}", todo.getTitle());
-		todo.setTitle("S1T " + todo.getTitle());
+		// todo.setTitle("Awesome new task: " + todo.getTitle());
 	}
 
 	@HandleBeforeSave
 	public void handleBeforeSave(Todo todo) {
 		log.debug("Saving todo: {}", todo.getTitle());
-		// todo.setTitle("S1T " + todo.getTitle());
+		
 		if (todo.getCompleted()) {
 			log.info("This Todo is completed: {}", todo.getTitle());
 		}
@@ -91,13 +91,3 @@ class TaskEventHandler {
 	}
 }
 
-@Configuration
-@EnableWebMvc
-class WebConfig implements WebMvcConfigurer {
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-		.allowedOrigins("https://tap-gui.view.tanzutime.com/");
-    }
-}

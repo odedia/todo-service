@@ -26,6 +26,16 @@
             "mainClass": "com.odedia.SpringBootVueApplication",
             "projectName": "todo-service",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Tanzu: Debug Remote Config - todo-service",
+            "request": "attach",
+            "port": 20000,
+            "hostName": "localhost",
+            "preLaunchTask": "tanzuWorkload: Deploy And Connect todo-service",
+            "preRestartTask": "tanzuWorkload: Deploy And Connect todo-service",
+            "postDebugTask": "tanzuManagement: Stop Port Forward todo-service"
         }
     ]
 }

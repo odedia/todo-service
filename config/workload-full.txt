@@ -33,5 +33,7 @@ spec:
   - name: db
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: todos-db
+      # kind: ResourceClaim
+      # name: todos-db-claim
+      kind: ClassClaim
+      name: my-rds-claim
