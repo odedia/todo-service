@@ -34,4 +34,4 @@ spec:
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
-      name: todos-db
+      name: todos-db5
