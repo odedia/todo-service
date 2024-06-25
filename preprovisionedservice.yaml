@@ -1,0 +1,11 @@
+apiVersion: services.tanzu.vmware.com/v1
+kind: PreProvisionedService
+metadata:
+  name: prod-postgresql
+spec:
+  bindingConnectors:
+  - name: read-write
+    description: Read-write available in all availability targets
+    type: postgresql
+    secretRef:
+      name: secret-postgres-rw-global

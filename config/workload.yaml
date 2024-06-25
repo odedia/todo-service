@@ -4,7 +4,7 @@ metadata:
   name: todo-service
   labels:
     apps.tanzu.vmware.com/workload-type: web
-    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/has-tests: "false"
     app.kubernetes.io/part-of: todos-app
     apis.apps.tanzu.vmware.com/register-api: "true"
 spec:
@@ -29,9 +29,10 @@ spec:
       url: https://github.com/odedia/todo-service
       ref:
         branch: main
-  serviceClaims:
-  - name: db
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: todos-db5
+ serviceClaims:
+ - name: db
+   ref:
+     apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+     kind: ClassClaim
+     name: todos-db
+

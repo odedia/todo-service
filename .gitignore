@@ -1,3 +1,7 @@
+output
+**/.secret.yaml
+.tanzu/config/.secret.yaml
+.secret.yaml
 *.java.hsp
 *.sonarj
 *.sw*

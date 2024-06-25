@@ -1,0 +1,11 @@
+apiVersion: services.tanzu.vmware.com/v1
+kind: PreProvisionedService
+metadata:
+  name: prod-mysql
+spec:
+  bindingConnectors:
+  - name: read-write
+    description: Read-write available in all availability targets
+    type: mysql
+    secretRef:
+      name: secret-mysql-rw-global

@@ -1,13 +1,11 @@
 package com.odedia;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +33,6 @@ public class SpringBootTodoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootTodoApplication.class, args);
 	}
-
-	@Bean
-	public HttpTraceRepository htttpTraceRepository() {
-		return new InMemoryHttpTraceRepository();
-	}
-
 }
 
 
@@ -90,4 +82,3 @@ class TaskEventHandler {
 		log.debug("Completed saving todo: {}", todo.getTitle());
 	}
 }
-

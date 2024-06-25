@@ -21,6 +21,6 @@ metadata:
   name: todo-ui-route-mapping
 spec:
   gatewayRef:
-    name: todos-gateway
+    name: spring-cloud-gateway
   routeConfigRef:
     name: todo-ui-route-config

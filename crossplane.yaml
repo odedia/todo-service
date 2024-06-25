@@ -1,0 +1,183 @@
+---
+# The AWS "family" Provider - manages the ProviderConfig for all other Providers in the same family.
+# Does not have to be created explicitly, if not created explicitly it will be installed by the first Provider created
+# in the family.
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: upbound-provider-family-aws
+spec:
+  package: xpkg.upbound.io/upbound/provider-family-aws:v0.36.0
+  controllerConfigRef:
+    name: upbound-provider-family-aws
+---
+# The AWS RDS Provider - just one of the many Providers in the AWS family.
+# You can add as few or as many additional Providers in the same family as you wish.
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: upbound-provider-aws-rds
+spec:
+  package: xpkg.upbound.io/upbound/provider-aws-rds:v0.36.0
+  controllerConfigRef:
+    name: upbound-provider-family-aws
+---
+# The ControllerConfig applies settings to a Provider Pod.
+# With family Providers each Provider is a unique Pod running in the cluster.
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: upbound-provider-family-aws
+---
+# xpostgresqlinstances.database.rds.example.org.xrd.yaml
+
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xpostgresqlinstances.database.rds.example.org
+spec:
+  claimNames:
+    kind: PostgreSQLInstance
+    plural: postgresqlinstances
+  connectionSecretKeys:
+  - type
+  - provider
+  - host
+  - port
+  - database
+  - username
+  - password
+  group: database.rds.example.org
+  names:
+    kind: XPostgreSQLInstance
+    plural: xpostgresqlinstances
+  versions:
+  - name: v1alpha1
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              storageGB:
+                type: integer
+                default: 20
+            type: object
+        type: object
+    served: true
+---
+# xpostgresqlinstances.database.rds.example.org.composition.yaml
+
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  labels:
+    provider: "aws"
+    vpc: "default"
+  name: xpostgresqlinstances.database.rds.example.org
+spec:
+  compositeTypeRef:
+    apiVersion: database.rds.example.org/v1alpha1
+    kind: XPostgreSQLInstance
+  publishConnectionDetailsWithStoreConfigRef:
+    name: default
+  resources:
+  - base:
+      apiVersion: rds.aws.upbound.io/v1beta1
+      kind: Instance
+      spec:
+        forProvider:
+          # NOTE: configure this section to your specific requirements
+          instanceClass: db.t3.micro
+          autoGeneratePassword: true
+          passwordSecretRef:
+            key: password
+            namespace: crossplane-system
+          engine: postgres
+          engineVersion: "13.13"
+          name: postgres
+          username: masteruser
+          publiclyAccessible: true                # <---- DANGER
+          region: us-east-1
+          skipFinalSnapshot: true
+        writeConnectionSecretToRef:
+          namespace: crossplane-system
+    connectionDetails:
+    - name: type
+      value: postgresql
+    - name: provider
+      value: aws
+    - name: database
+      value: postgres
+    - fromConnectionSecretKey: username
+    - fromConnectionSecretKey: password
+    - name: host
+      fromConnectionSecretKey: endpoint
+    - fromConnectionSecretKey: port
+    name: instance
+    patches:
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.forProvider.passwordSecretRef.name
+      transforms:
+      - string:
+          fmt: '%s-postgresql-pw'
+          type: Format
+        type: string
+      type: FromCompositeFieldPath
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.writeConnectionSecretToRef.name
+      transforms:
+      - string:
+          fmt: '%s-postgresql'
+          type: Format
+        type: string
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.storageGB
+      toFieldPath: spec.forProvider.allocatedStorage
+      type: FromCompositeFieldPath
+---
+# rds.class.yaml
+
+---
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClusterInstanceClass
+metadata:
+  name: aws-rds-psql
+spec:
+  description:
+    short: Amazon AWS RDS PostgreSQL
+  provisioner:
+    crossplane:
+      compositeResourceDefinition: xpostgresqlinstances.database.rds.example.org
+---
+# app-operator-claim-aws-rds-psql.rbac.yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: app-operator-claim-aws-rds-psql
+  labels:
+    apps.tanzu.vmware.com/aggregate-to-app-operator-cluster-access: "true"
+rules:
+- apiGroups:
+  - "services.apps.tanzu.vmware.com"
+  resources:
+  - clusterinstanceclasses
+  resourceNames:
+  - aws-rds-psql
+  verbs:
+  - claim
+---
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: aws-secret
+      key: creds

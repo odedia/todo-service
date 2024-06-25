@@ -6,6 +6,6 @@ tanzu service class-claim create todos-db --class postgresql-unmanaged --paramet
 
 tanzu service class-claim get todos-db
 
-tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:todos
--db
+tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:my-db --dry-run=client
 
+tanzu service class-claim delete todos-db
